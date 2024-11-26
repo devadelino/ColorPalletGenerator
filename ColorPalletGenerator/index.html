@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerador de Paleta de Cores</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="container mx-auto p-6 bg-white rounded-lg shadow-lg">
+        <h1 class="text-2xl font-bold mb-6 text-center">Gerador de Paleta de Cores</h1>
+        <div id="palette" class="grid grid-cols-5 gap-4 mb-6">
+            <!-- Cores serão geradas aqui -->
+        </div>
+        <button id="generateBtn" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
+            Gerar Nova Paleta
+        </button>
+        <div id="colorCodes" class="mt-4 text-center"></div>
+    </div>
+
+    <script>
+        const paletteEl = document.getElementById('palette');
+        const generateBtn = document.getElementById('generateBtn');
+        const colorCodesEl = document.getElementById('colorCodes');
+
+        function generateRandomPalette() {
+            return Array.from({ length: 5 }, () => 
+                [Math.floor(Math.random() * 256), 
+                 Math.floor(Math.random() * 256), 
+                 Math.floor(Math.random() * 256)]
+            );
+        }
+
+        function displayPalette(colors) {
+            paletteEl.innerHTML = colors.map(color => {
+                const rgbColor = `rgb(${color.join(',')})`;
+                return `
+                    <div class="h-32 rounded" style="background-color: ${rgbColor}"></div>
+                `;
+            }).join('');
+
+            colorCodesEl.innerHTML = colors.map(color => {
+                const hexColor = rgbToHex(color);
+                return `<span class="mr-2">${hexColor}</span>`;
+            }).join('');
+        }
+
+        function rgbToHex(rgb) {
+            return '#' + rgb.map(x => {
+                const hex = x.toString(16);
+                return hex.length === 1 ? '0' + hex : hex;
+            }).join('');
+        }
+
+        generateBtn.addEventListener('click', () => {
+            const palette = generateRandomPalette();
+            displayPalette(palette);
+        });
+
+        // Gerar paleta inicial
+        const initialPalette = generateRandomPalette();
+        displayPalette(initialPalette);
+    </script>
+</body>
+</html>
