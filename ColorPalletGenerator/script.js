@@ -2,7 +2,8 @@
 /*// script.js
 const API_URL = "http://colormind.io/api/";
 
-// Função para buscar uma paleta aleatória da API
+//PARA SIMPLIFICAR USAR SÒ HTML SEM API
+// Função para buscar uma paleta aleatória da API--ERRO
 async function fetchPalette() {
   try {
     // Envia o modelo padrão como corpo da requisição
@@ -39,7 +40,7 @@ function displayPalette(colors) {
   });
 }
 
-// Evento para gerar uma nova paleta ao clicar no botão
+// Clica no botão -> Gera paleta nova
 document.getElementById("generate").addEventListener("click", async () => {
   const colors = await fetchPalette();
   if (colors.length) {
